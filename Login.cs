@@ -3,13 +3,13 @@ using System.Windows.Forms;
 
 namespace CSharp_68PM1_BuiTienDat_0007168
 {
-    public partial class Form1 : Form
+    public partial class Login : Form
     {
         private const string STUDENT_EMAIL = "dat0007168@st.huce.edu.vn"; 
         private const string STUDENT_MSSV = "0007168";               
         
 
-        public Form1()
+        public Login()
         {
             InitializeComponent();
         }
@@ -20,12 +20,12 @@ namespace CSharp_68PM1_BuiTienDat_0007168
 
             if (username == STUDENT_EMAIL && password == STUDENT_MSSV)
             {
-                MessageBox.Show(
-                    "Đăng nhập thành công! Chào mừng bạn.",
-                    "Thông báo",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                MessageBox.Show("Đăng nhập thành công!", "Thông báo",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                MainForm formQL = new MainForm();
+                formQL.Show();
+                this.Hide();
             }
             else
             {
