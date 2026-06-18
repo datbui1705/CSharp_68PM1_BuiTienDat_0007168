@@ -107,5 +107,25 @@ namespace CSharp_68PM1_BuiTienDat_0007168
                 LoadDataSinhVien();
             }
         }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtMaSV.Text))
+            {
+                MessageBox.Show("Vui lòng chọn sinh viên cần xóa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (MessageBox.Show("Bạn có chắc muốn xóa sinh viên này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                string query = "DELETE FROM SinhVien WHERE MaSV=@MaSV";
+                var p = new Microsoft.Data.SqlClient.SqlParameter[] { new("@MaSV", txtMaSV.Text.Trim()) };
+                if (Database.ExecuteNonQuery(query, p) > 0)
+                {
+                    MessageBox.Show("Xóa sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadDataSinhVien();
+                    btnLamMoi_Click(null, null);
+                }
+            }
+        }
     }
 }
