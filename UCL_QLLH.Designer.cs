@@ -51,7 +51,7 @@
             btnNext = new Button();
             btnLast = new Button();
             panelPhanTrang = new Panel();
-            button1 = new Button();
+            buttonXem = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvSinhVien).BeginInit();
             groupBox1.SuspendLayout();
             panelPhanTrang.SuspendLayout();
@@ -69,6 +69,7 @@
             dgvSinhVien.RowTemplate.Height = 24;
             dgvSinhVien.Size = new Size(790, 581);
             dgvSinhVien.TabIndex = 39;
+            dgvSinhVien.CellContentClick += dgvSinhVien_CellContentClick;
             // 
             // btnTim
             // 
@@ -131,6 +132,7 @@
             btnThem.TabIndex = 32;
             btnThem.Text = "Thêm";
             btnThem.UseVisualStyleBackColor = false;
+            btnThem.Click += btnThem_Click;
             // 
             // groupBox1
             // 
@@ -261,6 +263,7 @@
             btnSua.TabIndex = 33;
             btnSua.Text = "Sửa";
             btnSua.UseVisualStyleBackColor = false;
+            btnSua.Click += btnSua_Click;
             // 
             // btnFirst
             // 
@@ -330,25 +333,26 @@
             panelPhanTrang.Size = new Size(790, 62);
             panelPhanTrang.TabIndex = 40;
             // 
-            // button1
+            // buttonXem
             // 
-            button1.BackColor = Color.FromArgb(44, 62, 80);
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(32, 689);
-            button1.Margin = new Padding(3, 4, 3, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(394, 45);
-            button1.TabIndex = 41;
-            button1.Text = "Xem danh sách sinh viên";
-            button1.UseVisualStyleBackColor = false;
+            buttonXem.BackColor = Color.FromArgb(44, 62, 80);
+            buttonXem.FlatStyle = FlatStyle.Flat;
+            buttonXem.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold);
+            buttonXem.ForeColor = Color.White;
+            buttonXem.Location = new Point(32, 689);
+            buttonXem.Margin = new Padding(3, 4, 3, 4);
+            buttonXem.Name = "buttonXem";
+            buttonXem.Size = new Size(394, 45);
+            buttonXem.TabIndex = 41;
+            buttonXem.Text = "Xem danh sách sinh viên";
+            buttonXem.UseVisualStyleBackColor = false;
+            buttonXem.Click += buttonXem_Click;
             // 
             // UC_QLLH
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(button1);
+            Controls.Add(buttonXem);
             Controls.Add(dgvSinhVien);
             Controls.Add(btnTim);
             Controls.Add(txtTimKiem);
@@ -395,6 +399,6 @@
         private System.Windows.Forms.Panel panelPhanTrang;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonXem;
     }
 }

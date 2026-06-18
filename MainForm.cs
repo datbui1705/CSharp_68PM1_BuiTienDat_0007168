@@ -14,10 +14,13 @@ namespace CSharp_68PM1_BuiTienDat_0007168
         // Sự kiện chạy ngay khi MainForm vừa mở lên (Sau khi Login thành công)
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // Set mặc định hiển thị luôn giao diện Quản lý Sinh viên
-            ShowUserControl(uc_qlsv);
+            UC_QLSV ucQLSV = new UC_QLSV();
+
+            panelContainer.Controls.Clear();
+            ucQLSV.Dock = DockStyle.Fill;
+            panelContainer.Controls.Add(ucQLSV);
+            ucQLSV.BringToFront();
         }
-        // Hàm xử lý dọn màn hình cũ, nạp màn hình mới vào khung chứa
         private void ShowUserControl(UserControl uc)
 
         {

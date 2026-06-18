@@ -239,6 +239,7 @@
             dgvSinhVien.RowTemplate.Height = 24;
             dgvSinhVien.Size = new Size(790, 581);
             dgvSinhVien.TabIndex = 29;
+            dgvSinhVien.CellClick += dgvSinhVien_CellClick;
             // 
             // btnTim
             // 
