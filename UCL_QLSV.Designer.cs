@@ -301,6 +301,7 @@
             btnThem.TabIndex = 22;
             btnThem.Text = "Thêm";
             btnThem.UseVisualStyleBackColor = false;
+            btnThem.Click += btnThem_Click;
             // 
             // groupBox1
             // 
@@ -337,6 +338,7 @@
             btnLamMoi.TabIndex = 25;
             btnLamMoi.Text = "Làm mới";
             btnLamMoi.UseVisualStyleBackColor = false;
+            btnLamMoi.Click += btnLamMoi_Click;
             // 
             // btnSua
             // 
@@ -351,6 +353,7 @@
             btnSua.TabIndex = 23;
             btnSua.Text = "Sửa";
             btnSua.UseVisualStyleBackColor = false;
+            btnSua.Click += btnSua_Click;
             // 
             // UC_QLSV
             // 

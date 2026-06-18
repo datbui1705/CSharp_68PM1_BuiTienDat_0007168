@@ -31,7 +31,6 @@ namespace CSharp_68PM1_BuiTienDat_0007168
         }
 
         private void dgvSinhVien_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
-        private void btnThem_Click(object sender, EventArgs e) { }
         private void btnSua_Click(object sender, EventArgs e) { }
         private void buttonXem_Click(object sender, EventArgs e) { }
         private void groupBox1_Enter(object sender, EventArgs e) { }

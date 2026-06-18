@@ -52,6 +52,60 @@ namespace CSharp_68PM1_BuiTienDat_0007168
             cboGioiTinh.SelectedItem = row.Cells["GioiTinh"].Value?.ToString();
             cboLop.SelectedValue = row.Cells["MaLop"].Value?.ToString();
         }
+        private void btnLamMoi_Click(object sender, EventArgs e)
+        {
+            txtMaSV.Clear();
+            txtHoTen.Clear();
+            dtpNgaySinh.Value = DateTime.Today;
+            cboGioiTinh.SelectedIndex = -1;
+            cboLop.SelectedIndex = -1;
+            txtTimKiem.Clear();
+        }
 
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtMaSV.Text) || string.IsNullOrWhiteSpace(txtHoTen.Text))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string query = "INSERT INTO SinhVien (MaSV, HoTen, NgaySinh, GioiTinh, MaLop) VALUES (@MaSV, @HoTen, @NgaySinh, @GioiTinh, @MaLop)";
+            var p = new Microsoft.Data.SqlClient.SqlParameter[]
+            {
+        new("@MaSV", txtMaSV.Text.Trim()),
+        new("@HoTen", txtHoTen.Text.Trim()),
+        new("@NgaySinh", dtpNgaySinh.Value.Date),
+        new("@GioiTinh", cboGioiTinh.SelectedItem?.ToString() ?? ""),
+        new("@MaLop", cboLop.SelectedValue?.ToString() ?? "")
+            };
+            if (Database.ExecuteNonQuery(query, p) > 0)
+            {
+                MessageBox.Show("Thêm sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadDataSinhVien();
+            }
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtMaSV.Text))
+            {
+                MessageBox.Show("Vui lòng chọn sinh viên cần sửa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string query = "UPDATE SinhVien SET HoTen=@HoTen, NgaySinh=@NgaySinh, GioiTinh=@GioiTinh, MaLop=@MaLop WHERE MaSV=@MaSV";
+            var p = new Microsoft.Data.SqlClient.SqlParameter[]
+            {
+        new("@HoTen", txtHoTen.Text.Trim()),
+        new("@NgaySinh", dtpNgaySinh.Value.Date),
+        new("@GioiTinh", cboGioiTinh.SelectedItem?.ToString() ?? ""),
+        new("@MaLop", cboLop.SelectedValue?.ToString() ?? ""),
+        new("@MaSV", txtMaSV.Text.Trim())
+            };
+            if (Database.ExecuteNonQuery(query, p) > 0)
+            {
+                MessageBox.Show("Cập nhật sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadDataSinhVien();
+            }
+        }
     }
 }
