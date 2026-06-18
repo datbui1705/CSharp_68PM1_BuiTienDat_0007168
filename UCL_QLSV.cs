@@ -127,5 +127,13 @@ namespace CSharp_68PM1_BuiTienDat_0007168
                 }
             }
         }
+
+        private void btnTim_Click(object sender, EventArgs e)
+        {
+            string keyword = txtTimKiem.Text.Trim();
+            string query = "SELECT * FROM SinhVien WHERE MaSV LIKE @kw OR HoTen LIKE @kw OR MaLop LIKE @kw";
+            var p = new Microsoft.Data.SqlClient.SqlParameter[] { new("@kw", $"%{keyword}%") };
+            dgvSinhVien.DataSource = Database.GetData(query, p);
+        }
     }
 }

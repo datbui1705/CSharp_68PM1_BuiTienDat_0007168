@@ -254,6 +254,7 @@
             btnTim.TabIndex = 28;
             btnTim.Text = "Tìm";
             btnTim.UseVisualStyleBackColor = false;
+            btnTim.Click += btnTim_Click;
             // 
             // txtTimKiem
             // 
