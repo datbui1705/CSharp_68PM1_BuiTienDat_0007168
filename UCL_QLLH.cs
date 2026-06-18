@@ -29,6 +29,16 @@ namespace CSharp_68PM1_BuiTienDat_0007168
                 MessageBox.Show("Lỗi tải dữ liệu lớp học: " + ex.Message);
             }
         }
+        private void dgvSinhVien_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            DataGridViewRow row = dgvSinhVien.Rows[e.RowIndex];
+
+            txtMaSV.Text = row.Cells["MaID"].Value?.ToString();
+            txtHoTen.Text = row.Cells["MaLop"].Value?.ToString();
+            cboLop.Text = row.Cells["TenLop"].Value?.ToString();
+            textBox1.Text = row.Cells["GhiChu"].Value?.ToString();
+        }
 
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
@@ -111,11 +121,40 @@ namespace CSharp_68PM1_BuiTienDat_0007168
         }
         private void dgvSinhVien_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
 
-        private void buttonXem_Click(object sender, EventArgs e) { }
         private void groupBox1_Enter(object sender, EventArgs e) { }
         private void label1_Click(object sender, EventArgs e) { }
         private void label5_Click(object sender, EventArgs e) { }
         private void label6_Click(object sender, EventArgs e) { }
         private void cboLop_SelectedIndexChanged(object sender, EventArgs e) { }
+        private void buttonXem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtMaSV.Text))
+            {
+                MessageBox.Show("Vui lòng chọn lớp học!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string maLop = txtHoTen.Text.Trim();
+            string tenLop = cboLop.Text.Trim();
+
+            string query = "SELECT * FROM SinhVien WHERE MaLop = @MaLop";
+            var p = new Microsoft.Data.SqlClient.SqlParameter[] { new("@MaLop", maLop) };
+            DataTable dt = Database.GetData(query, p);
+
+            Form formXem = new Form();
+            formXem.Text = $"Danh sách sinh viên lớp {tenLop}";
+            formXem.Size = new System.Drawing.Size(800, 500);
+            formXem.StartPosition = FormStartPosition.CenterScreen;
+
+            DataGridView dgv = new DataGridView();
+            dgv.Dock = DockStyle.Fill;
+            dgv.DataSource = dt;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv.ReadOnly = true;
+            dgv.AllowUserToAddRows = false;
+
+            formXem.Controls.Add(dgv);
+            formXem.ShowDialog();
+        }
     }
 }
