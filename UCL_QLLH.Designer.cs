@@ -84,6 +84,7 @@
             btnTim.TabIndex = 38;
             btnTim.Text = "Tìm";
             btnTim.UseVisualStyleBackColor = false;
+            btnTim.Click += btnTim_Click;
             // 
             // txtTimKiem
             // 
@@ -118,6 +119,7 @@
             btnXoa.TabIndex = 34;
             btnXoa.Text = "Xóa";
             btnXoa.UseVisualStyleBackColor = false;
+            btnXoa.Click += btnXoa_Click;
             // 
             // btnThem
             // 
@@ -249,6 +251,7 @@
             btnLamMoi.TabIndex = 35;
             btnLamMoi.Text = "Làm mới";
             btnLamMoi.UseVisualStyleBackColor = false;
+            btnLamMoi.Click += btnLamMoi_Click;
             // 
             // btnSua
             // 

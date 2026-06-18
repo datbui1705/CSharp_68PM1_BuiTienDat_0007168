@@ -30,8 +30,87 @@ namespace CSharp_68PM1_BuiTienDat_0007168
             }
         }
 
+        private void btnLamMoi_Click(object sender, EventArgs e)
+        {
+            txtMaSV.Clear();
+            txtHoTen.Clear();
+            cboLop.SelectedIndex = -1;
+            textBox1.Clear();
+            txtTimKiem.Clear();
+        }
+
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtHoTen.Text))
+            {
+                MessageBox.Show("Vui lòng nhập Mã lớp!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string query = "INSERT INTO LopHoc (MaLop, TenLop, GhiChu) VALUES (@MaLop, @TenLop, @GhiChu)";
+            var p = new Microsoft.Data.SqlClient.SqlParameter[]
+            {
+        new("@MaLop", txtHoTen.Text.Trim()),
+        new("@TenLop", cboLop.Text.Trim()),
+        new("@GhiChu", textBox1.Text.Trim())
+            };
+            if (Database.ExecuteNonQuery(query, p) > 0)
+            {
+                MessageBox.Show("Thêm lớp học thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadDataLopHoc();
+            }
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtMaSV.Text))
+            {
+                MessageBox.Show("Vui lòng chọn lớp học cần sửa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string query = "UPDATE LopHoc SET MaLop=@MaLop, TenLop=@TenLop, GhiChu=@GhiChu WHERE MaID=@MaID";
+            var p = new Microsoft.Data.SqlClient.SqlParameter[]
+            {
+        new("@MaLop", txtHoTen.Text.Trim()),
+        new("@TenLop", cboLop.Text.Trim()),
+        new("@GhiChu", textBox1.Text.Trim()),
+        new("@MaID", txtMaSV.Text.Trim())
+            };
+            if (Database.ExecuteNonQuery(query, p) > 0)
+            {
+                MessageBox.Show("Cập nhật lớp học thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadDataLopHoc();
+            }
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtMaSV.Text))
+            {
+                MessageBox.Show("Vui lòng chọn lớp học cần xóa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (MessageBox.Show("Bạn có chắc muốn xóa lớp học này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                string query = "DELETE FROM LopHoc WHERE MaID=@MaID";
+                var p = new Microsoft.Data.SqlClient.SqlParameter[] { new("@MaID", txtMaSV.Text.Trim()) };
+                if (Database.ExecuteNonQuery(query, p) > 0)
+                {
+                    MessageBox.Show("Xóa lớp học thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadDataLopHoc();
+                    btnLamMoi_Click(null, null);
+                }
+            }
+        }
+
+        private void btnTim_Click(object sender, EventArgs e)
+        {
+            string keyword = txtTimKiem.Text.Trim();
+            string query = "SELECT * FROM LopHoc WHERE CAST(MaID AS NVARCHAR) LIKE @kw OR MaLop LIKE @kw OR TenLop LIKE @kw";
+            var p = new Microsoft.Data.SqlClient.SqlParameter[] { new("@kw", $"%{keyword}%") };
+            dgvSinhVien.DataSource = Database.GetData(query, p);
+        }
         private void dgvSinhVien_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
-        private void btnSua_Click(object sender, EventArgs e) { }
+
         private void buttonXem_Click(object sender, EventArgs e) { }
         private void groupBox1_Enter(object sender, EventArgs e) { }
         private void label1_Click(object sender, EventArgs e) { }
